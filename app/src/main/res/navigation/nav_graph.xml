@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/iHome">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.workoutassistant.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/iHome"
+        android:name="com.example.workoutassistant.HomeFragment"
+        android:label="@string/homeLabel"
+        tools:layout="@layout/fragment_home">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/iWorkout" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.workoutassistant.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/iWorkout"
+        android:name="com.example.workoutassistant.WorkoutFragment"
+        android:label="@string/workout_label"
+        tools:layout="@layout/fragment_workout">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/iHome" />
     </fragment>
 </navigation>
