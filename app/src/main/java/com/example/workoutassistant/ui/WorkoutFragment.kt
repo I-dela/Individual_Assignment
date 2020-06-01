@@ -3,24 +3,26 @@ package com.example.workoutassistant.ui
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
-import androidx.activity.viewModels
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workoutassistant.R
-import com.example.workoutassistant.adapter.BodyPartAdapter
+import com.example.workoutassistant.adapter.DataAdapter
 import com.example.workoutassistant.model.BodyPart
 import com.example.workoutassistant.ui.viemodels.BodyPartsViewModel
 import kotlinx.android.synthetic.main.fragment_workout.*
+import kotlinx.android.synthetic.main.item_workout.*
 
 class WorkoutFragment : Fragment() {
 
     private val bodyParts  = arrayListOf<BodyPart>()
-    private val adapter  = BodyPartAdapter(bodyParts)
+    private val adapter  = DataAdapter(bodyParts)
     private val viewModel: BodyPartsViewModel by viewModels()
+
+
 
 
     override fun onCreateView(
@@ -29,8 +31,12 @@ class WorkoutFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true)
+
         return inflater.inflate(R.layout.fragment_workout, container, false)
     }
+
+
+
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

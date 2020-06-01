@@ -4,5 +4,6 @@
     <!-- Strings used for fragments for navigation -->
     <string name="homeLabel">Home</string>
     <string name="workout_label">Workout</string>
+    <string name="home_quote">Success is nothing more than a few simple disciplines, practised every day.</string>
 
 </resources>

@@ -1,0 +1,98 @@
+package com.example.workoutassistant.adapter
+
+import android.content.Intent
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
+import com.example.workoutassistant.R
+import com.example.workoutassistant.model.BodyPart
+import com.example.workoutassistant.model.Level
+import com.example.workoutassistant.ui.ChooseLevelActivity
+import kotlinx.android.synthetic.main.item_level.view.*
+import kotlinx.android.synthetic.main.item_workout.view.*
+
+class DataAdapter(
+    private val data: List<Any> = emptyList()
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    val itemOnClick: (View, Int, Int) -> Unit = { view, position, type ->
+        Log.d("Hallo", "test")
+    }
+
+
+    inner class BodyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(bodypart: BodyPart) {
+            itemView.tvBodyPart.text = bodypart.name
+        }
+
+    }
+
+    inner class LevelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(level: Level) {
+            itemView.tvLevel.text = level.name
+
+        }
+
+    }
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            TYPE_BODY -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_workout, parent, false)
+                BodyViewHolder(view)
+            }
+            TYPE_LEVELS -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_level, parent, false)
+                LevelsViewHolder(view)
+            }
+
+            else -> throw IllegalArgumentException("Invalid view type")
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return data.size
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val element = data[position]
+        when (holder) {
+            is BodyViewHolder ->{
+                holder.bind(element as BodyPart)
+                holder.itemView.setOnClickListener{
+                    val intent = Intent(holder.itemView.context, ChooseLevelActivity::class.java)
+                    Toast.makeText(holder.itemView.context,"clicked",Toast.LENGTH_SHORT).show()
+
+                    holder.itemView.context.startActivity(intent)
+                }
+
+
+
+            }
+            is LevelsViewHolder -> holder.bind(element as Level)
+            else -> throw IllegalArgumentException()
+        }
+
+
+    }
+
+
+    override fun getItemViewType(position: Int): Int {
+        return when (data[position]) {
+            is BodyPart -> TYPE_BODY
+            else -> TYPE_LEVELS
+        }
+    }
+
+    companion object {
+        private const val TYPE_BODY = 0
+        private const val TYPE_LEVELS = 1
+        private const val TYPE_WORKOUTS = 2
+    }
+}
