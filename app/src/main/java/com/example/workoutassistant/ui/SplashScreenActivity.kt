@@ -1,9 +1,10 @@
-package com.example.workoutassistant
+package com.example.workoutassistant.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import com.example.workoutassistant.R
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -17,7 +18,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
         Handler().postDelayed({
 
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this,
+                MainActivity::class.java))
 
             finish()
         }, SPLASH_TIME_OUT)
