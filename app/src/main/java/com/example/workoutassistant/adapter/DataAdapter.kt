@@ -15,7 +15,8 @@ import kotlinx.android.synthetic.main.item_level.view.*
 import kotlinx.android.synthetic.main.item_workout.view.*
 
 class DataAdapter(
-    private val data: List<Any> = emptyList()
+    private val data: List<Any> = emptyList(),
+    private val onClick: (Any) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val itemOnClick: (View, Int, Int) -> Unit = { view, position, type ->
@@ -28,12 +29,20 @@ class DataAdapter(
             itemView.tvBodyPart.text = bodypart.name
         }
 
+        init {
+            itemView.setOnClickListener { onClick(data[adapterPosition]) }
+        }
+
     }
 
     inner class LevelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(level: Level) {
             itemView.tvLevel.text = level.name
 
+        }
+
+        init {
+            itemView.setOnClickListener { onClick(data[adapterPosition]) }
         }
 
     }
@@ -65,17 +74,14 @@ class DataAdapter(
         when (holder) {
             is BodyViewHolder ->{
                 holder.bind(element as BodyPart)
-                holder.itemView.setOnClickListener{
-                    val intent = Intent(holder.itemView.context, ChooseLevelActivity::class.java)
-                    Toast.makeText(holder.itemView.context,"clicked",Toast.LENGTH_SHORT).show()
-
-                    holder.itemView.context.startActivity(intent)
-                }
 
 
 
             }
-            is LevelsViewHolder -> holder.bind(element as Level)
+            is LevelsViewHolder -> {
+                holder.bind(element as Level)
+
+            }
             else -> throw IllegalArgumentException()
         }
 

@@ -1,5 +1,6 @@
 package com.example.workoutassistant.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
@@ -13,13 +14,14 @@ import com.example.workoutassistant.R
 import com.example.workoutassistant.adapter.DataAdapter
 import com.example.workoutassistant.model.BodyPart
 import com.example.workoutassistant.ui.viemodels.BodyPartsViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_workout.*
 import kotlinx.android.synthetic.main.item_workout.*
 
 class WorkoutFragment : Fragment() {
 
     private val bodyParts  = arrayListOf<BodyPart>()
-    private val adapter  = DataAdapter(bodyParts)
+    private val adapter  = DataAdapter(bodyParts) { bodyPart -> onColorClick(bodyPart as BodyPart) }
     private val viewModel: BodyPartsViewModel by viewModels()
 
 
@@ -83,4 +85,11 @@ class WorkoutFragment : Fragment() {
 
         super.onCreateOptionsMenu(menu, inflater)
     }
+
+    private fun onColorClick(bodyPart: BodyPart) {
+        val intent  = Intent(context, ChooseLevelActivity::class.java)
+        intent.putExtra("BodyPart", bodyPart.name)
+        startActivity(intent)
+    }
+
 }
