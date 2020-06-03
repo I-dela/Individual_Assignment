@@ -43,17 +43,17 @@ abstract class BodyPartRoomDatabase : RoomDatabase() {
                                     INSTANCE?.let { database ->
                                         CoroutineScope(Dispatchers.IO).launch {
 
-                                            database.bodyPartDAO().insertBodyPart(BodyPart("Chest"
+                                            database.bodyPartDAO().insertBodyPart(BodyPart("Chest", true
                                             ))
-                                            database.bodyPartDAO().insertBodyPart(BodyPart("Shoulders"
+                                            database.bodyPartDAO().insertBodyPart(BodyPart("Shoulders", false
                                             ))
-                                            database.bodyPartDAO().insertBodyPart(BodyPart("Back"
+                                            database.bodyPartDAO().insertBodyPart(BodyPart("Back", false
                                             ))
-                                            database.bodyPartDAO().insertBodyPart(BodyPart("Biceps"
+                                            database.bodyPartDAO().insertBodyPart(BodyPart("Biceps", false
                                             ))
-                                            database.bodyPartDAO().insertBodyPart(BodyPart("Legs"
+                                            database.bodyPartDAO().insertBodyPart(BodyPart("Legs", false
                                             ))
-                                            database.bodyPartDAO().insertBodyPart(BodyPart("Triceps"
+                                            database.bodyPartDAO().insertBodyPart(BodyPart("Triceps", false
                                             ))
 
 

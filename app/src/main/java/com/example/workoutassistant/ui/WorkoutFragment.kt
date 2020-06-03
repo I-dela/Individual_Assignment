@@ -16,6 +16,7 @@ import com.example.workoutassistant.model.BodyPart
 import com.example.workoutassistant.ui.viemodels.BodyPartsViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_workout.*
+import kotlinx.android.synthetic.main.fragment_workout.view.*
 import kotlinx.android.synthetic.main.item_workout.*
 
 class WorkoutFragment : Fragment() {
@@ -34,11 +35,47 @@ class WorkoutFragment : Fragment() {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true)
 
-        return inflater.inflate(R.layout.fragment_workout, container, false)
+
+
+        val view: View = inflater.inflate(R.layout.fragment_workout, container, false)
+
+        view.button.setOnClickListener{
+            initRecyclerViewWithFavourites()
+        }
+
+        view.buttonAll.setOnClickListener{
+            initRecyclerViewWithAll()
+        }
+
+        // Return the fragment view/layout
+        return view
     }
 
 
 
+
+
+
+
+    fun initRecyclerViewWithFavourites (){
+        viewModel.favourites.observe(viewLifecycleOwner, Observer {bodyPartsFavourite ->
+            this.bodyParts.clear()
+            this.bodyParts.addAll(bodyPartsFavourite)
+            adapter.notifyDataSetChanged()
+
+        })
+
+    }
+
+    fun initRecyclerViewWithAll(){
+        viewModel.bodyParts.observe(viewLifecycleOwner, Observer {bodyParts ->
+            this.bodyParts.clear()
+            this.bodyParts.addAll(bodyParts)
+            adapter.notifyDataSetChanged()
+
+        })
+
+    }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

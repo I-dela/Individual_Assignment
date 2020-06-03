@@ -21,6 +21,10 @@ class BodyPartRepo(context: Context) {
         return bodyPartDAO.getBodyParts()
     }
 
+    fun getBodyPartsFavourite(): LiveData<List<BodyPart>>{
+        return bodyPartDAO.getBodyPartsFavourite()
+    }
+
     suspend fun insertBodyPart(bodyPart: BodyPart){
          bodyPartDAO.insertBodyPart(bodyPart)
     }

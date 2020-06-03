@@ -17,6 +17,9 @@ class BodyPart(
     var name: String,
 
 
+    var isFavourite : Boolean,
+
+
 
 
     @PrimaryKey(autoGenerate = true)

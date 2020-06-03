@@ -15,8 +15,6 @@ import com.example.workoutassistant.R
 import com.example.workoutassistant.model.WorkoutVideo
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -26,7 +24,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
 
-    private lateinit var database: DatabaseReference
+    private var database: DatabaseReference = FirebaseDatabase.getInstance().reference
+
+    private var workoutsRef: DatabaseReference = database.child("Workouts")
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +38,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         navControllerSetup()
 
+
+
+
         firebase.setOnClickListener {
             saveVideos()
         }
@@ -43,25 +48,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun saveVideos(){
-        database = Firebase.database.reference
 
+//        val workout = WorkoutVideo("Ja")
+//
+//        workoutsRef.setValue(workout).addOnSuccessListener {
+//            Toast.makeText(this,"Succes", Toast.LENGTH_LONG).show()
+//        }
+//
 
-
-        val wId = database.push().key
-        val video = wId?.let { WorkoutVideo(false, "Backworkout", "dummyurl", it) }
-
-
-        if (wId != null) {
-
-
-
-            database.child("videos").child(wId).setValue(video).addOnCompleteListener{
-                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
-            }.addOnFailureListener { ex : Exception ->
-                Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show()
-
+        val workouts: List<WorkoutVideo> = arrayListOf(
+            WorkoutVideo("Gherkin"),
+            WorkoutVideo("Lettuce")
+        )
+        workouts.forEach {
+            val key = workoutsRef.push().key
+            it.id = key
+            if (key != null) {
+                workoutsRef.child(key).setValue(it)
             }
         }
+
+
 
 
     }

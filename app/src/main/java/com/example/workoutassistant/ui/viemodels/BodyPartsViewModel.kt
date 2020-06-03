@@ -14,4 +14,6 @@ class BodyPartsViewModel(application: Application) : AndroidViewModel(applicatio
 
 
     val bodyParts :LiveData<List<BodyPart>> = bodyPartRepo.getBodyParts()
+
+    val favourites :LiveData<List<BodyPart>> = bodyPartRepo.getBodyPartsFavourite()
 }

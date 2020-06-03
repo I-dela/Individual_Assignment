@@ -5,20 +5,19 @@ import androidx.room.PrimaryKey
 import com.google.firebase.database.IgnoreExtraProperties
 import kotlinx.android.parcel.Parcelize
 
-@Parcelize
+
 @IgnoreExtraProperties
-
-data class WorkoutVideo(
-
+ class WorkoutVideo(
 
 
-    var markedAsDone : Boolean = false,
 
-    var name : String,
 
-    var VideoUrl : String,
+    var name : String? = "",
 
-    var id : String
+    @PrimaryKey
+    var id : String? =""
 
-) : Parcelable {
+
+
+)  {
 }

@@ -15,6 +15,11 @@ interface BodyPartDAO {
     fun getBodyParts() : LiveData<List<BodyPart>>
 
 
+    @Query("SELECT * FROM BODYPART WHERE isFavourite = 1")
+    fun getBodyPartsFavourite() : LiveData<List<BodyPart>>
+
+
+
 
 
 }
