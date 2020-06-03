@@ -20,6 +20,13 @@ interface BodyPartDAO {
 
 
 
+    @Query("UPDATE BodyPart SET isFavourite = 1 WHERE id = :bodyPartId")
+    suspend fun setAsFavourite(bodyPartId : Long)
+
+    @Query("UPDATE BodyPart SET isFavourite = 0 WHERE id = :bodyPartId")
+    suspend fun unSetAsFavourite(bodyPartId : Long)
+
+
 
 
 }

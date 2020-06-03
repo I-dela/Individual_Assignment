@@ -29,6 +29,14 @@ class BodyPartRepo(context: Context) {
          bodyPartDAO.insertBodyPart(bodyPart)
     }
 
+  suspend  fun setAsFavourite(bodyPartId : Long){
+        bodyPartDAO.setAsFavourite(bodyPartId)
+    }
+
+    suspend fun unSetAsFavourite(bodyPartId: Long){
+        bodyPartDAO.unSetAsFavourite(bodyPartId)
+    }
+
 
 
 
