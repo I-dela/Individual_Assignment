@@ -1,15 +1,22 @@
 package com.example.workoutassistant.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.workoutassistant.R
+import com.example.workoutassistant.model.WorkoutVideo
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -19,6 +26,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
 
+    private lateinit var database: DatabaseReference
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -26,11 +36,38 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         navControllerSetup()
 
+        firebase.setOnClickListener {
+            saveVideos()
+        }
+
+    }
+
+    private fun saveVideos(){
+        database = Firebase.database.reference
 
 
+
+        val wId = database.push().key
+        val video = wId?.let { WorkoutVideo(false, "Backworkout", "dummyurl", it) }
+
+
+        if (wId != null) {
+
+
+
+            database.child("videos").child(wId).setValue(video).addOnCompleteListener{
+                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener { ex : Exception ->
+                Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show()
+
+            }
+        }
 
 
     }
+
+
+
 
 
     private fun navControllerSetup() {
