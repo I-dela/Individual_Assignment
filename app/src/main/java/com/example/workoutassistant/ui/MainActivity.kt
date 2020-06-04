@@ -13,8 +13,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.workoutassistant.R
 import com.example.workoutassistant.model.WorkoutVideo
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -49,24 +48,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun saveVideos(){
 
-//        val workout = WorkoutVideo("Ja")
-//
-//        workoutsRef.setValue(workout).addOnSuccessListener {
-//            Toast.makeText(this,"Succes", Toast.LENGTH_LONG).show()
-//        }
-//
+        val workout = WorkoutVideo("Ja", R.raw.back)
 
-        val workouts: List<WorkoutVideo> = arrayListOf(
-            WorkoutVideo("Gherkin"),
-            WorkoutVideo("Lettuce")
-        )
-        workouts.forEach {
-            val key = workoutsRef.push().key
-            it.id = key
-            if (key != null) {
-                workoutsRef.child(key).setValue(it)
-            }
+        workoutsRef.setValue(workout).addOnSuccessListener {
+            Toast.makeText(this,"Succes", Toast.LENGTH_LONG).show()
         }
+
+
+
+
+
 
 
 
