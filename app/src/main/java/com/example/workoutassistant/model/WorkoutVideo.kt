@@ -3,12 +3,10 @@ package com.example.workoutassistant.model
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.firebase.database.IgnoreExtraProperties
 import kotlinx.android.parcel.Parcelize
+import java.lang.reflect.Constructor
 
 
-
-@IgnoreExtraProperties
  data class WorkoutVideo(
 
 
@@ -19,12 +17,21 @@ import kotlinx.android.parcel.Parcelize
 
     var video_id : Int? =null,
 
+    var bodyType: String = "",
+
+    var level : String =""
 
 
-    @PrimaryKey
-    var id : String? =""
+
+
+
+
+
+
 
 
 
 )  {
+
+
 }

@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.workoutassistant.R
 import com.example.workoutassistant.model.WorkoutVideo
 import com.google.firebase.database.*
+import com.google.firebase.firestore.FirebaseFirestore
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -23,9 +24,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
 
-    private var database: DatabaseReference = FirebaseDatabase.getInstance().reference
-
-    private var workoutsRef: DatabaseReference = database.child("Workouts")
 
 
 
@@ -40,29 +38,11 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        firebase.setOnClickListener {
-            saveVideos()
-        }
-
-    }
-
-    private fun saveVideos(){
-
-        val workout = WorkoutVideo("Ja", R.raw.back)
-
-        workoutsRef.setValue(workout).addOnSuccessListener {
-            Toast.makeText(this,"Succes", Toast.LENGTH_LONG).show()
-        }
-
-
-
-
-
-
-
 
 
     }
+
+
 
 
 
