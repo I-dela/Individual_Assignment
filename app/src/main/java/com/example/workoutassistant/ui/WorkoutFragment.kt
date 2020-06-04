@@ -58,7 +58,7 @@ class WorkoutFragment : Fragment() {
 
 
 
-    fun initRecyclerViewWithFavourites (){
+    private fun initRecyclerViewWithFavourites (){
         viewModel.favourites.observe(viewLifecycleOwner, Observer {bodyPartsFavourite ->
             this.bodyParts.clear()
             this.bodyParts.addAll(bodyPartsFavourite)
@@ -68,7 +68,7 @@ class WorkoutFragment : Fragment() {
 
     }
 
-    fun initRecyclerViewWithAll(){
+    private fun initRecyclerViewWithAll(){
         viewModel.bodyParts.observe(viewLifecycleOwner, Observer {bodyParts ->
             this.bodyParts.clear()
             this.bodyParts.addAll(bodyParts)

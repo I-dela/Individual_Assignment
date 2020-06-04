@@ -93,9 +93,10 @@ abstract class BodyPartRoomDatabase : RoomDatabase() {
 
                                     val workoutsRef = database.collection("Workouts")
 
-                                    val workout = WorkoutVideo("Ja", R.raw.back, "Back", "Beginner")
-                                    val workout2 = WorkoutVideo("Ja", R.raw.backadv, "Back", "Advanced")
-                                    val workout3 = WorkoutVideo("Ja", R.raw.chestadv, "Chest", "Advanced")
+                                    val workout = WorkoutVideo("BackBeginner", R.raw.back, "Back", "Beginner")
+                                    val workout2 = WorkoutVideo("BackAdvanced", R.raw.backadv, "Back", "Advanced")
+                                    val workout3 = WorkoutVideo("ChestAdvanced", R.raw.chestadv, "Chest", "Advanced")
+
 
 
 
@@ -103,6 +104,22 @@ abstract class BodyPartRoomDatabase : RoomDatabase() {
 
 
                                     workoutsRef.add(workout).addOnSuccessListener {
+                                        Log.w("success:", "success adding document")
+
+
+                                    }.addOnFailureListener { e ->
+                                        Log.w("Error:", "Error adding document", e)
+                                    }
+
+                                    workoutsRef.add(workout2).addOnSuccessListener {
+                                        Log.w("success:", "success adding document")
+
+
+                                    }.addOnFailureListener { e ->
+                                        Log.w("Error:", "Error adding document", e)
+                                    }
+
+                                    workoutsRef.add(workout3).addOnSuccessListener {
                                         Log.w("success:", "success adding document")
 
 

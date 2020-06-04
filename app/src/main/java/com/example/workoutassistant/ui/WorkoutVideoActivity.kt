@@ -9,9 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workoutassistant.R
 import com.example.workoutassistant.model.WorkoutVideo
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.android.synthetic.main.activity_workout_video.*
 
 class WorkoutVideoActivity : AppCompatActivity() {
@@ -27,29 +25,40 @@ class WorkoutVideoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workout_video)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        supportActionBar?.title = "Video Workout"
+
+       initVideoView()
+
+
+        initViews()
+
+    }
+
+
+    fun initVideoView() {
         if (mController == null) {
             mController = MediaController(this@WorkoutVideoActivity)
         }
 
+        workoutsRef.whereEqualTo("bodyType", intent.getStringExtra("BodyPart")).get()
+            .addOnSuccessListener { documentSnapshot ->
 
+                if(!documentSnapshot.isEmpty) {
+                    val workoutVideo = documentSnapshot.toObjects(WorkoutVideo::class.java)[0]
 
-
-
-
-        workoutsRef.whereEqualTo("bodyType", intent.getStringExtra("BodyPart")).get().addOnSuccessListener { documentSnapshot ->
-            val workoutVideo  = documentSnapshot.toObjects(WorkoutVideo::class.java)[0]
-
-            if(workoutVideo.level == intent.getStringExtra("Level")) {
-                try {
-                    vvWorkout.setMediaController(mController)
-                    vvWorkout.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + R.raw.back))
-                } catch (e: Exception) {
-                    Log.e("Error", e.message)
+                    if (workoutVideo.level == intent.getStringExtra("Level")) {
+                        try {
+                            vvWorkout.setMediaController(mController)
+                            vvWorkout.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + workoutVideo.video_id))
+                        } catch (e: Exception) {
+                            Log.e("Error", e.message)
+                        }
+                    }
                 }
-            }
 
-        }
+            }
 
         vvWorkout.requestFocus()
         vvWorkout.setOnCompletionListener {
@@ -60,26 +69,6 @@ class WorkoutVideoActivity : AppCompatActivity() {
                 vvWorkout.pause()
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        initViews()
-
-    }
-
-
-    fun initVideoView() {
 
 
     }
@@ -98,7 +87,6 @@ class WorkoutVideoActivity : AppCompatActivity() {
 
 
     fun initViews() {
-        Toast.makeText(this, intent.getStringExtra("BodyPart"), Toast.LENGTH_SHORT).show()
 
 
         tvTitleWorkoutVideo.text = intent.getStringExtra("BodyPart")
@@ -108,5 +96,15 @@ class WorkoutVideoActivity : AppCompatActivity() {
 
         workoutImage.setBackgroundResource(intent.getIntExtra("BodyPartImage", 0))
 
+        levelImage.setBackgroundColor(intent.getIntExtra("levelImage",0))
+
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+
 }
+
