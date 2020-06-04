@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.gamebacklog.Database.Interfaces.BodyPartDAO
+import com.example.workoutassistant.R
 import com.example.workoutassistant.model.BodyPart
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -43,18 +44,21 @@ abstract class BodyPartRoomDatabase : RoomDatabase() {
                                     INSTANCE?.let { database ->
                                         CoroutineScope(Dispatchers.IO).launch {
 
-                                            database.bodyPartDAO().insertBodyPart(BodyPart("Chest", true
+                                            database.bodyPartDAO().insertBodyPart(BodyPart("Chest", true, R.drawable.chest
                                             ))
-                                            database.bodyPartDAO().insertBodyPart(BodyPart("Shoulders", false
+                                            database.bodyPartDAO().insertBodyPart(BodyPart("Shoulders", false, R.drawable.shoulders
                                             ))
-                                            database.bodyPartDAO().insertBodyPart(BodyPart("Back", false
+                                            database.bodyPartDAO().insertBodyPart(BodyPart("Back", false, R.drawable.back
                                             ))
-                                            database.bodyPartDAO().insertBodyPart(BodyPart("Biceps", false
+                                            database.bodyPartDAO().insertBodyPart(BodyPart("Biceps", false, R.drawable.biceps
                                             ))
-                                            database.bodyPartDAO().insertBodyPart(BodyPart("Legs", false
+                                            database.bodyPartDAO().insertBodyPart(BodyPart("Legs", false, R.drawable.legs
                                             ))
-                                            database.bodyPartDAO().insertBodyPart(BodyPart("Triceps", false
+                                            database.bodyPartDAO().insertBodyPart(BodyPart("Triceps", false, R.drawable.triceps
                                             ))
+                                            database.bodyPartDAO().insertBodyPart(BodyPart("Abs", false, R.drawable.abs
+                                            ))
+
 
 
 

@@ -1,6 +1,7 @@
 package com.example.workoutassistant.ui
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -41,9 +42,9 @@ class ChooseLevelActivity : AppCompatActivity() {
 
     private fun loadData(){
 
-        levels.add(Level("Beginner"))
-        levels.add(Level("Intermediate"))
-        levels.add(Level("Advanced"))
+        levels.add(Level("Beginner", Color.parseColor("#7CFC00")))
+        levels.add(Level("Intermediate", Color.parseColor("#e67e00")))
+        levels.add(Level("Advanced", Color.parseColor("#CC0000")))
 
     }
 
@@ -60,43 +61,16 @@ class ChooseLevelActivity : AppCompatActivity() {
             )
         )
 
-
-        createItemTouchHelper().attachToRecyclerView(rvLevels)
     }
 
-    private fun createItemTouchHelper(): ItemTouchHelper {
 
-        // Callback which is used to create the ItemTouch helper. Only enables left swipe.
-        // Use ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) to also enable right swipe.
-        val callback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-
-            // Enables or Disables the ability to move items up and down.
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
-
-            // Callback triggered when a user swiped an item.
-            // onSwiped has been changed to use the ViewModel deleteReminder method
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-
-
-
-
-
-            }
-        }
-        return ItemTouchHelper(callback)
-    }
 
 
     private fun onColorClick(level: Level) {
         val intentToWorkoutVideoActivity = Intent(this, WorkoutVideoActivity::class.java)
         intentToWorkoutVideoActivity.putExtra("BodyPart" , intent.getStringExtra("BodyPart"))
         intentToWorkoutVideoActivity.putExtra("Level" , level.name)
+        intentToWorkoutVideoActivity.putExtra("BodyPartImage" , intent.getStringExtra("image"))
         startActivity(intentToWorkoutVideoActivity)
     }
 

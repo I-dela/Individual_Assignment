@@ -13,12 +13,22 @@ class WorkoutVideoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_workout_video)
 
 
+        initViews()
+
+    }
+
+
+
+    fun initViews(){
         Toast.makeText(this,intent.getStringExtra("BodyPart"), Toast.LENGTH_SHORT).show()
 
 
         tvTitleWorkoutVideo.text = intent.getStringExtra("BodyPart")
 
         tvDescriptionWorkoutVideo.text = intent.getStringExtra("Level")
+
+
+        workoutImage.setBackgroundResource(intent.getIntExtra("BodyPartImage", 0))
 
     }
 }

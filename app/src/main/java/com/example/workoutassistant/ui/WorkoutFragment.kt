@@ -17,6 +17,7 @@ import com.example.workoutassistant.ui.viemodels.BodyPartsViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_workout.*
 import kotlinx.android.synthetic.main.fragment_workout.view.*
+import kotlinx.android.synthetic.main.item_level.view.*
 
 class WorkoutFragment : Fragment() {
 
@@ -34,8 +35,6 @@ class WorkoutFragment : Fragment() {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true)
 
-
-
         val view: View = inflater.inflate(R.layout.fragment_workout, container, false)
 
         view.button.setOnClickListener{
@@ -45,6 +44,7 @@ class WorkoutFragment : Fragment() {
         view.buttonAll.setOnClickListener{
             initRecyclerViewWithAll()
         }
+
 
 
 
@@ -131,6 +131,7 @@ class WorkoutFragment : Fragment() {
     private fun onBodyPartClick(bodyPart: BodyPart) {
         val intent  = Intent(context, ChooseLevelActivity::class.java)
         intent.putExtra("BodyPart", bodyPart.name)
+        intent.putExtra("image", bodyPart.imageName)
         startActivity(intent)
     }
 
@@ -152,27 +153,50 @@ class WorkoutFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
                 if(direction == ItemTouchHelper.RIGHT) {
+
                     val position = viewHolder.adapterPosition
                     val bodyPartSetFavourite = bodyParts[position]
 
 
-                    val id = bodyPartSetFavourite.id
-                    if (id != null) {
-                        viewModel.setAsFavourite(id)
+
+                        val id = bodyPartSetFavourite.id
+                        if (id != null) {
+                            viewModel.setAsFavourite(id)
+                        }
+                    if(bodyPartSetFavourite.isFavourite){
+                        Snackbar.make(rvWorkouts, "Already marked as favourite", Snackbar.LENGTH_LONG).show()
+
+
+                    }else {
+                        Snackbar.make(rvWorkouts, "Marked as favourite", Snackbar.LENGTH_LONG)
+                            .show()
                     }
-                    Snackbar.make(rvWorkouts, "Marked as favourite", Snackbar.LENGTH_LONG).show()
 
                 } else{
+
+
                     val position = viewHolder.adapterPosition
                     val bodyPartToUnsetFavourite = bodyParts[position]
 
 
-                    val id =  bodyPartToUnsetFavourite.id
 
-                    if(id != null){
-                        viewModel.unSetAsFavourite(id)
+                        val id = bodyPartToUnsetFavourite.id
+
+                        if (id != null) {
+                            viewModel.unSetAsFavourite(id)
+                        }
+                    if(!bodyPartToUnsetFavourite.isFavourite){
+                        Snackbar.make(rvWorkouts, "Error: this one is not in your favourites list ", Snackbar.LENGTH_LONG).show()
+
+
+                    }else {
+                        Snackbar.make(
+                            rvWorkouts,
+                            "Deleted from My Favourites ",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+
                     }
-                    Snackbar.make(rvWorkouts, "Deleted from My Favourites ", Snackbar.LENGTH_LONG).show()
 
                 }
 

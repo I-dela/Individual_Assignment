@@ -1,16 +1,16 @@
 package com.example.workoutassistant.adapter
 
-import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workoutassistant.R
 import com.example.workoutassistant.model.BodyPart
 import com.example.workoutassistant.model.Level
-import com.example.workoutassistant.ui.ChooseLevelActivity
 import kotlinx.android.synthetic.main.item_level.view.*
 import kotlinx.android.synthetic.main.item_workout.view.*
 
@@ -19,14 +19,14 @@ class DataAdapter(
     private val onClick: (Any) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val itemOnClick: (View, Int, Int) -> Unit = { view, position, type ->
-        Log.d("Hallo", "test")
-    }
-
 
     inner class BodyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(bodypart: BodyPart) {
             itemView.tvBodyPart.text = bodypart.name
+
+            bodypart.imageName?.let { itemView.clImage.setBackgroundResource(it) }
+
+
         }
 
         init {
@@ -38,6 +38,7 @@ class DataAdapter(
     inner class LevelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(level: Level) {
             itemView.tvLevel.text = level.name
+            itemView.clImage2.setBackgroundColor(level.difficulty)
 
         }
 

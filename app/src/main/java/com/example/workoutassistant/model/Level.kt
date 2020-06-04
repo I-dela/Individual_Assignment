@@ -12,11 +12,15 @@ class Level(
 
     var name : String,
 
+    var difficulty: Int,
+
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
 
     var id: Long? = null
+
+
 ): Parcelable {
 
 }

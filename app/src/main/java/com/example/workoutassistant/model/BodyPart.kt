@@ -19,6 +19,8 @@ class BodyPart(
 
     var isFavourite : Boolean,
 
+    var imageName : Int? = null,
+
 
 
 
